@@ -24,16 +24,16 @@ function saveRecord(record) {
     //open new transaction with database
     const transaction = db.transaction(['new_budget'], 'readwrite');
 
-    const budgetObjectStore = transaction.objectStore('new_budget');
+    const store = transaction.objectStore('new_budget');
 
-    budgetObjectStore.add(record);
+    store.add(record);
 }
 
 function uploadBudget() {
     const transaction = db.transaction(['new_budget'], 'readwrite');
 
-    const budgetObjectStore = transaction.objectStore('new_budget');
-    const getAll = budgetObjectStore.getAll();
+    const store = transaction.objectStore('new_budget');
+    const getAll = store.getAll();
 
     //run on successful .getAll
     getAll.onsuccess = function() {
@@ -52,8 +52,8 @@ function uploadBudget() {
                         throw new Error(serverResponse);
                     }
                     const transaction = db.transaction(['new_budget'], 'readwrite');
-                    const budgetObjectStore = transaction.objectStore('new_budget');
-                    budgetObjectStore.clear();
+                    const store = transaction.objectStore('new_budget');
+                    store.clear();
 
                     alert('Budget submitted');
                 })
